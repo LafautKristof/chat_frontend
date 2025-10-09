@@ -1,10 +1,13 @@
 "use client";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 type User = {
     id: string;
     name: string;
+    email: string;
+    image: string;
 };
 const UsersPage = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -45,13 +48,27 @@ const UsersPage = () => {
         return <p>Please log in to view users.</p>;
     }
     return (
-        <ul className="space-y-2">
+        <ul className="divide-y divide-gray-200 dark:divide-gray-800">
             {users.map((u) => (
-                <li
-                    key={u.id}
-                    className="cursor-pointer p-2 rounded hover:bg-gray-200"
-                >
-                    <Link href={`/users/${u.id}`}>{u.name} </Link>
+                <li key={u.id}>
+                    <Link
+                        href={`/users/${u.id}`}
+                        className="
+                        block px-4 py-3 
+                        rounded-md transition
+                        hover:bg-muted hover:text-foreground
+                    "
+                    >
+                        {" "}
+                        <Image
+                            src={u.image}
+                            alt={u.name}
+                            width={24}
+                            height={24}
+                            className="mr-2 rounded-full"
+                        />
+                        {u.name}
+                    </Link>
                 </li>
             ))}
         </ul>

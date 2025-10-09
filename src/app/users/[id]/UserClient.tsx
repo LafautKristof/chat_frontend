@@ -62,21 +62,37 @@ export default function UserClient({ userId }: { userId: string }) {
     if (!user) return <p>Loading...</p>;
 
     return (
-        <div className="p-4">
-            <h1 className="text-xl font-bold">{user.name}</h1>
-            <p className="text-gray-600">{user.email}</p>
-            <Image
-                src={user.image || getInitials(user.name)}
-                alt={user.name}
-                width={200}
-                height={200}
-                className="rounded-md"
-            />
+        <div className="max-w-sm mx-auto bg-card border rounded-xl shadow-md p-6 text-center">
+            {/* Profielfoto */}
+            <div className="flex justify-center mb-4">
+                <div className="relative w-32 h-32">
+                    <Image
+                        src={user.image || "/default-avatar.png"}
+                        alt={user.name}
+                        fill
+                        className="object-cover rounded-full border border-gray-300 shadow-sm"
+                    />
+                </div>
+            </div>
+
+            {/* Naam & Email */}
+            <h1 className="text-2xl font-semibold text-foreground mb-1">
+                {user.name}
+            </h1>
+            <p className="text-sm text-muted-foreground">{user.email}</p>
+
+            {/* Chatknop */}
             <button
                 onClick={handleOpenChat}
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-600 transition"
+                className="
+                    mt-6 inline-flex items-center gap-2 
+                    bg-blue-600 text-white font-medium 
+                    px-5 py-2.5 rounded-lg 
+                    hover:bg-blue-700 active:scale-95 
+                    transition-all duration-150
+                "
             >
-                chat with me 👋
+                💬 Chat with me
             </button>
         </div>
     );
