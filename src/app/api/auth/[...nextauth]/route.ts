@@ -64,18 +64,25 @@ export const authOptions: NextAuthOptions = {
         async session({ session }) {
             if (!session.user?.email) return session;
 
+            const backendUrl =
+                process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+            console.log("Fetching user from backend:", backendUrl);
+
             try {
                 const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user?email=${session.user.email}`
+                    `${backendUrl}/auth/user?email=${session.user.email}`
                 );
+                console.log("Response status:", res.status);
 
                 if (res.ok) {
                     const dbUser = await res.json();
                     session.user.id = dbUser.id;
                     session.user.hasPassword = !!dbUser.password;
+                } else {
+                    console.error("Backend returned:", await res.text());
                 }
             } catch (err) {
-                console.error("Failed to load user from backend", err);
+                console.error("❌ Failed to load user from backend:", err);
             }
 
             return session;
