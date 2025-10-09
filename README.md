@@ -31,7 +31,7 @@ This project is part of my personal portfolio and demonstrates how to build fast
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/LafautKristof/chat-frontend.git
-cd chat-frontend
+git clone https://github.com/LafautKristof/chat_frontend.git
+cd chat_frontend
 npm install
 ```
