@@ -13,6 +13,10 @@ const UsersPage = () => {
         if (status !== "authenticated") return;
         async function loadUsers() {
             try {
+                console.log(
+                    "fetching users",
+                    process.env.NEXT_PUBLIC_BACKEND_URL
+                );
                 const res = await fetch(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}/users?excludeId=${session?.user?.id}`,
                     {
