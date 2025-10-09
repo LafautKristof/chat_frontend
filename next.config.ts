@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
                 protocol: "https",
                 hostname: "i.pravatar.cc",
             },
+            {
+                protocol: "https",
+                hostname: "media.tenor.com",
+            },
+            {
+                protocol: "https",
+                hostname: "tenor.com",
+            },
         ].filter(Boolean) as any,
     },
 };
