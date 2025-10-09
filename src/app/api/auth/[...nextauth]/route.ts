@@ -85,6 +85,10 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+        signIn: "/login", // optioneel, als je custom login page hebt
+        error: "/login", // redirect bij fout
+    },
 };
 
 const handler = NextAuth(authOptions);
