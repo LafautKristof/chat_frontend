@@ -66,13 +66,11 @@ export const authOptions: NextAuthOptions = {
 
             const backendUrl =
                 process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
-            console.log("Fetching user from backend:", backendUrl);
 
             try {
                 const res = await fetch(
                     `${backendUrl}/auth/user?email=${session.user.email}`
                 );
-                console.log("Response status:", res.status);
 
                 if (res.ok) {
                     const dbUser = await res.json();

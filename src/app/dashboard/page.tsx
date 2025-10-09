@@ -36,7 +36,6 @@ export default function Dashboard() {
                     </Alert>
                 )}
             </div>
-            <LogoutButton />
         </>
     );
 }

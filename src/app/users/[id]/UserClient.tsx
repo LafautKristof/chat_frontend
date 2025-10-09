@@ -21,11 +21,6 @@ export default function UserClient({ userId }: { userId: string }) {
     useEffect(() => {
         async function loadUser() {
             try {
-                console.log(
-                    "Fetching users from:",
-                    process.env.NEXT_PUBLIC_BACKEND_URL + "/users"
-                );
-
                 const res = await fetch(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userId}`
                 );
