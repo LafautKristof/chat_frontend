@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
 
             try {
                 const res = await fetch(
-                    `${process.env.BACKEND_URL}/auth/user?email=${session.user.email}`
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user?email=${session.user.email}`
                 );
 
                 if (res.ok) {
