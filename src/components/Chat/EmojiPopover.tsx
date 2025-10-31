@@ -17,12 +17,18 @@ const EmojiPopover = ({ onSelect }: { onSelect: (emoji: string) => void }) => {
             </PopoverTrigger>
 
             <PopoverContent
-                side="top"
+                side={
+                    typeof window !== "undefined" && window.innerWidth < 640
+                        ? "bottom"
+                        : "top"
+                }
                 align="start"
-                className="bg-white border rounded-lg shadow-lg p-2"
+                className="bg-white border rounded-lg shadow-lg p-2 max-w-[90vw]"
             >
                 <EmojiPicker
                     onEmojiClick={(emojiData) => onSelect(emojiData.emoji)}
+                    width="100%"
+                    height={window.innerWidth < 640 ? 400 : 500}
                 />
             </PopoverContent>
         </Popover>
