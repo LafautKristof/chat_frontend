@@ -61,7 +61,7 @@ const UsersPage = () => {
                     >
                         {" "}
                         <Image
-                            src={u.image}
+                            src={u.image || "/anonymous.jpeg"}
                             alt={u.name}
                             width={24}
                             height={24}

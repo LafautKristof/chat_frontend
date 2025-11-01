@@ -67,7 +67,7 @@ export default function UserClient({ userId }: { userId: string }) {
             <div className="flex justify-center mb-4">
                 <div className="relative w-32 h-32">
                     <Image
-                        src={user.image || "/default-avatar.png"}
+                        src={user.image || "/anonymous.jpeg"}
                         alt={user.name}
                         fill
                         className="object-cover rounded-full border border-gray-300 shadow-sm"

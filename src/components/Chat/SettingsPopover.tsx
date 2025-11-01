@@ -27,7 +27,6 @@ const SettingsPopover = ({
         initialBackground ?? "#ffffff"
     );
 
-    // Sync props bij refresh of verandering
     useEffect(() => {
         if (initialTitle) setTitle(initialTitle);
     }, [initialTitle]);
