@@ -186,7 +186,10 @@ export default function ConversationList({
                                     .map((p, i) => (
                                         <Image
                                             key={i}
-                                            src={p.user.image || "/file.svg"}
+                                            src={
+                                                p.user.image ||
+                                                "/anonymous.jpeg"
+                                            }
                                             alt={p.user.name || "User"}
                                             width={36}
                                             height={36}
@@ -199,7 +202,7 @@ export default function ConversationList({
                                         conv.participants.find(
                                             (p) =>
                                                 p.user.id !== session?.user?.id
-                                        )?.user?.image || "/file.svg"
+                                        )?.user?.image || "anonymous.jpeg"
                                     }
                                     alt={
                                         conv.participants.find(
