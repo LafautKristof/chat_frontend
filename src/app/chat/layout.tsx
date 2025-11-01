@@ -15,11 +15,10 @@ export default function ChatLayout({
         recipientId?: string;
     } | null>(null);
 
-    const isMobileView = activeConversation !== null; // tonen chat als er gesprek actief is
+    const isMobileView = activeConversation !== null;
 
     return (
         <div className="flex h-full min-h-0">
-            {/* 🔹 Sidebar */}
             <aside
                 className={`
           w-64 bg-white border-r p-4 flex flex-col shadow-sm
@@ -37,7 +36,6 @@ export default function ChatLayout({
                 </div>
             </aside>
 
-            {/* 🔹 Main Chat Area */}
             <main
                 className={`
           flex-1 min-h-0 flex flex-col overflow-hidden
@@ -46,7 +44,6 @@ export default function ChatLayout({
             >
                 {activeConversation ? (
                     <>
-                        {/* 🔙 Terugknop voor mobiel */}
                         <div className="sm:hidden flex items-center gap-2 bg-gray-100 border-b p-2">
                             <button
                                 onClick={() => setActiveConversation(null)}

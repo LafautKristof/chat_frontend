@@ -23,7 +23,6 @@ export default function ConversationList({
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const { data: session } = useSession();
 
-    // 🔹 Laad alle conversaties bij mount
     useEffect(() => {
         async function loadConversations() {
             if (!session?.user?.id) return;
@@ -41,7 +40,6 @@ export default function ConversationList({
 
         loadConversations();
 
-        // 📩 Nieuw bericht ontvangen
         socket.on("message", (msg) => {
             setConversations((prev) => {
                 const updated = prev.map((c) =>
@@ -58,7 +56,6 @@ export default function ConversationList({
                         : c
                 );
 
-                // 👉 als de conversatie nog niet bestaat (nieuw gesprek)
                 if (!updated.find((c) => c.id === msg.conversationId)) {
                     updated.unshift({
                         id: msg.conversationId,
@@ -72,7 +69,6 @@ export default function ConversationList({
                     });
                 }
 
-                // 👉 her-sorteer zodat laatste bericht bovenaan staat
                 updated.sort(
                     (a, b) =>
                         new Date(b.messages?.[0]?.createdAt || 0).getTime() -
@@ -83,7 +79,6 @@ export default function ConversationList({
             });
         });
 
-        // 👥 Nieuwe gebruiker toegevoegd → update deelnemerslijst
         socket.on("user_added", ({ conversationId, user }) => {
             if (!user) return;
 
@@ -111,7 +106,7 @@ export default function ConversationList({
                 )
             );
         });
-        // 🟢 Conversatie zelf is geüpdatet (bijv. nieuwe titel of achtergrond)
+
         socket.on("conversation_update", async ({ conversationId }) => {
             try {
                 if (!conversationId) return;
@@ -131,13 +126,13 @@ export default function ConversationList({
                         title: updated.title ?? null,
                         isGroup: updated.isGroup ?? false,
                         participants: updated.participants ?? [],
-                        // we tonen in de list enkel het laatste bericht
+
                         messages:
                             updated.messages && updated.messages.length > 0
                                 ? [updated.messages[0]]
                                 : [],
                         createdAt: updated.createdAt,
-                        updatedAt: updated.updatedAt, // (optioneel als je dit wil gebruiken)
+                        updatedAt: updated.updatedAt,
                     };
 
                     const next = exists
@@ -148,7 +143,6 @@ export default function ConversationList({
                           )
                         : [normalized, ...prev];
 
-                    // sorteer op laatste activiteit (laatste bericht of updatedAt fallback)
                     next.sort((a, b) => {
                         const aTs = new Date(
                             a.messages?.[0]?.createdAt || a.updatedAt || 0
@@ -182,14 +176,13 @@ export default function ConversationList({
                         onClick={() => onSelectConversation(conv.id)}
                         className="p-3 rounded-lg hover:bg-blue-50 cursor-pointer flex items-center gap-3 border-b border-gray-100 transition"
                     >
-                        {/* 🔹 Avatars */}
                         <div className="flex -space-x-3">
                             {conv.isGroup ? (
                                 conv.participants
                                     .filter(
                                         (p) => p.user.id !== session?.user?.id
                                     )
-                                    .slice(0, 3) // max 3 avatars tonen
+                                    .slice(0, 3)
                                     .map((p, i) => (
                                         <Image
                                             key={i}
@@ -221,7 +214,6 @@ export default function ConversationList({
                             )}
                         </div>
 
-                        {/* 🔹 Tekst */}
                         <div className="flex flex-col min-w-0 flex-1">
                             <span className="font-medium text-gray-900 truncate">
                                 {conv.isGroup

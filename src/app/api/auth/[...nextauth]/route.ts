@@ -91,8 +91,8 @@ export const authOptions: NextAuthOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
-        signIn: "/login", // optioneel, als je custom login page hebt
-        error: "/login", // redirect bij fout
+        signIn: "/login",
+        error: "/login",
     },
 };
 

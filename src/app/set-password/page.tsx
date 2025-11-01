@@ -10,7 +10,7 @@ export default function SetPasswordPage() {
     }
 
     if (!session?.user?.email) {
-        return <p>Je moet ingelogd zijn om een wachtwoord in te stellen.</p>;
+        return <p>You need to be logged in to set a password.</p>;
     }
 
     return (

@@ -20,17 +20,16 @@ export default function Dashboard() {
                         <AlertCircle className="h-5 w-5 text-yellow-600" />
                         <AlertTitle>Wachtwoord ontbreekt</AlertTitle>
                         <AlertDescription>
-                            Je account is aangemaakt via{" "}
+                            Your account was created via
                             {session?.user?.email?.includes("github")
                                 ? "GitHub"
                                 : "Google"}
-                            . Stel een wachtwoord in zodat je ook via e-mail
-                            kunt inloggen.{" "}
+                            . Set a password so you can log in via e-mail
                             <Link
                                 href="/set-password"
                                 className="underline text-blue-600"
                             >
-                                Stel wachtwoord in
+                                Set password
                             </Link>
                         </AlertDescription>
                     </Alert>

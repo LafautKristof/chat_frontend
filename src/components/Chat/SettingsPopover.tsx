@@ -39,7 +39,7 @@ const SettingsPopover = ({
         if (!conversationId || !session?.user?.id) return;
 
         const confirmLeave = confirm(
-            "Weet je zeker dat je deze chat wilt verlaten?"
+            "Are you sure you want to leave this chat?"
         );
         if (!confirmLeave) return;
 
@@ -58,7 +58,7 @@ const SettingsPopover = ({
             // optioneel: redirect naar home of chatlijst
             window.location.href = "/chat";
         } else {
-            console.error("❌ Kon chat niet verlaten");
+            console.error("Couldn't leave chat");
         }
     }
     return (
@@ -67,7 +67,7 @@ const SettingsPopover = ({
                 <button
                     type="button"
                     className="p-2 hover:bg-gray-200 rounded transition"
-                    title="Chat instellingen"
+                    title="Chat settings"
                 >
                     <Settings size={22} />
                 </button>
@@ -78,29 +78,29 @@ const SettingsPopover = ({
                 align="start"
                 className="bg-white border rounded-lg shadow-lg p-3 w-64"
             >
-                <h3 className="font-medium text-sm mb-2">Chat Instellingen</h3>
+                <h3 className="font-medium text-sm mb-2">Chat settings</h3>
 
-                <label className="text-xs text-gray-500">Titel</label>
+                <label className="text-xs text-gray-500">Title</label>
                 <input
                     type="text"
                     value={title}
                     onChange={(e) => {
                         const newTitle = e.target.value;
                         setTitle(newTitle);
-                        if (onTitleChange) onTitleChange(newTitle); // 👈 update parent live
+                        if (onTitleChange) onTitleChange(newTitle);
                     }}
                     className="w-full border rounded px-2 py-1 mb-2 text-sm"
                     placeholder="Bv. Chill chat 💬"
                 />
 
-                <label className="text-xs text-gray-500">Achtergrond</label>
+                <label className="text-xs text-gray-500">Background</label>
                 <input
                     type="color"
                     value={background}
                     onChange={(e) => {
                         const newColor = e.target.value;
                         setBackground(newColor);
-                        if (onBackgroundChange) onBackgroundChange(newColor); // 👈 direct live update
+                        if (onBackgroundChange) onBackgroundChange(newColor);
                     }}
                     className="w-full h-8 border rounded mb-3"
                 />
@@ -110,14 +110,14 @@ const SettingsPopover = ({
                     onClick={onSave}
                     className="w-full bg-blue-500 text-white py-1.5 rounded text-sm hover:bg-blue-600 transition"
                 >
-                    Opslaan
+                    Save
                 </button>
                 <button
                     type="button"
                     onClick={handleLeaveConversation}
                     className="w-full bg-red-500 text-white py-1.5 rounded text-sm hover:bg-red-600 transition"
                 >
-                    Groep verlaten
+                    Leave group
                 </button>
             </PopoverContent>
         </Popover>

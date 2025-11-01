@@ -23,7 +23,6 @@ export default function InvitePopover({
     const [loading, setLoading] = useState(false);
     const [invitedIds, setInvitedIds] = useState<string[]>([]);
     const existingIds = participants.map((p) => p.user.id);
-    // 🔎 Live zoeken op naam
 
     useEffect(() => {
         if (!query.trim()) {
@@ -53,7 +52,6 @@ export default function InvitePopover({
         return () => clearTimeout(delay);
     }, [query]);
 
-    // ➕ Gebruiker toevoegen of uitnodigen
     async function handleInvite(userId: string) {
         if (!conversationId) return;
 
@@ -70,7 +68,6 @@ export default function InvitePopover({
             if (!res.ok) throw new Error("Kon gebruiker niet uitnodigen");
             const data = await res.json();
 
-            // ✅ Hier pak je de juiste user uit de response
             socket.emit("user_added", {
                 conversationId,
                 user: {
@@ -103,9 +100,7 @@ export default function InvitePopover({
                 align="start"
                 className="bg-white border rounded-lg shadow-lg p-3 w-72"
             >
-                <h3 className="font-medium text-sm mb-2">
-                    Gebruiker uitnodigen
-                </h3>
+                <h3 className="font-medium text-sm mb-2">Invite a user</h3>
 
                 {/* 🔎 Zoekveld */}
                 <div className="flex gap-2 mb-3">
@@ -126,7 +121,7 @@ export default function InvitePopover({
                 </div>
 
                 {loading && (
-                    <p className="text-xs text-gray-400 mb-2">Zoeken...</p>
+                    <p className="text-xs text-gray-400 mb-2">Searching...</p>
                 )}
 
                 {/* 👥 Resultatenlijst */}
@@ -171,12 +166,12 @@ export default function InvitePopover({
 
                                       {alreadyInChat && (
                                           <span className="ml-auto text-xs italic text-gray-400">
-                                              ✅ In chat
+                                              &#10084; In chat
                                           </span>
                                       )}
                                       {alreadyInvited && (
                                           <span className="ml-auto text-xs text-green-600">
-                                              ✓ Uitgenodigd
+                                              Checked
                                           </span>
                                       )}
                                   </button>
@@ -184,7 +179,8 @@ export default function InvitePopover({
                           })
                         : !loading && (
                               <p className="text-xs text-gray-400 italic">
-                                  Geen resultaten gevonden
+                                  No users found. Try searching for a different
+                                  name.
                               </p>
                           )}
                 </div>

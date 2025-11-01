@@ -40,7 +40,6 @@ export default function MessageForm({
 
     const typingTimeout = useRef<NodeJS.Timeout | null>(null);
 
-    // 🔌 Connect socket bij mount
     useEffect(() => {
         if (!socket.connected) socket.connect();
         return () => {
@@ -48,9 +47,6 @@ export default function MessageForm({
         };
     }, []);
 
-    // 🎞️ Laad trending + zoek GIFs live
-
-    // ✏️ Typing events
     function handleTyping() {
         if (conversationId && session?.user) {
             socket.emit("typing", {
@@ -74,7 +70,6 @@ export default function MessageForm({
         }
     }
 
-    // 📤 Bericht versturen
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!content.trim() || !session?.user?.id) return;
@@ -108,7 +103,6 @@ export default function MessageForm({
         }
     }
 
-    // 🎞️ GIF verzenden
     async function sendGif(url: string) {
         if (!session?.user?.id) return;
 
@@ -173,18 +167,15 @@ export default function MessageForm({
                 onSave={handleSaveSettings}
             />
 
-            {/* 😊 Emoji Picker */}
             <EmojiPopover onSelect={(emoji) => setContent(content + emoji)} />
 
-            {/* 🎞️ GIF Picker */}
             <GifPopover onSelect={(url) => sendGif(url)} />
 
-            {/* 🎉 Inviteren */}
             <InvitePopover
                 conversationId={conversationId}
                 participants={participants}
             />
-            {/* 📝 Tekstveld */}
+
             <input
                 className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
                 value={content}
@@ -198,10 +189,9 @@ export default function MessageForm({
                         handleSubmit(e);
                     }
                 }}
-                placeholder="Typ je bericht..."
+                placeholder="Type your message..."
             />
 
-            {/* 📤 Verzenden */}
             <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition"

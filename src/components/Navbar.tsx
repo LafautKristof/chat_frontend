@@ -8,7 +8,6 @@ const Navbar = () => {
 
     return (
         <nav className="bg-yellow-400 p-4 flex items-center justify-between">
-            {/* 🔹 Linkerkant */}
             <div className="flex items-center gap-4">
                 <Link href="/">Home</Link>
 
@@ -37,7 +36,6 @@ const Navbar = () => {
                 )}
             </div>
 
-            {/* 🔹 Rechterkant */}
             {session?.user && <LogoutButton />}
         </nav>
     );

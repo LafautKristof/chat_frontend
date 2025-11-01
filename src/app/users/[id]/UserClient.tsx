@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
-import getInitials from "@/app/helpers/getInitals";
-
 type User = {
     id: string;
     name: string;

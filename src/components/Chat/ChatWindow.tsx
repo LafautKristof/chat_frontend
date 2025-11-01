@@ -35,12 +35,11 @@ export default function ChatWindow({
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
-    // ✅ sync initial conversation id
+
     useEffect(() => {
         if (initialConversationId) setConversationId(initialConversationId);
     }, [initialConversationId]);
 
-    // ✅ 1️⃣ Haal berichten + deelnemers op
     useEffect(() => {
         if (!conversationId) return;
 
@@ -65,17 +64,14 @@ export default function ChatWindow({
 
         loadConversation();
 
-        // 🟢 Socket join
         socket.emit("join_conversation", conversationId);
 
-        // 💬 Normale berichten
         socket.on("message", (msg) => {
             if (msg.conversationId === conversationId) {
                 setMessages((prev) => [...prev, msg]);
             }
         });
 
-        // 📝 Typing events
         socket.on("typing", ({ user, userId }) => {
             if (userId !== session?.user?.id) setTypingUser(user);
         });
@@ -84,7 +80,6 @@ export default function ChatWindow({
             if (userId !== session?.user?.id) setTypingUser(null);
         });
 
-        // 📢 Systeemberichten (user toegevoegd / verlaten)
         socket.on("system_message", (data) => {
             if (data.conversationId !== conversationId) return;
 
@@ -92,16 +87,15 @@ export default function ChatWindow({
                 id: `system-${Date.now()}`,
                 content: data.message,
                 type: "system",
-                conversationId, // 👈 verplicht veld
+                conversationId,
                 createdAt: new Date().toISOString(),
-                sender: undefined, // 👈 optioneel (mag ook null)
+                sender: undefined,
                 senderId: undefined,
             };
 
             setMessages((prev) => [...prev, systemMsg]);
         });
 
-        // 🧹 Cleanup
         return () => {
             socket.emit("leave_conversation", conversationId);
             socket.off("message");
@@ -111,7 +105,6 @@ export default function ChatWindow({
         };
     }, [conversationId, session?.user?.id]);
 
-    // ✅ 4️⃣ Haal alle mogelijke users op, filter deelnemers eruit
     useEffect(() => {
         async function loadUsers() {
             if (!session?.user?.id) return;
@@ -130,27 +123,23 @@ export default function ChatWindow({
         loadUsers();
     }, [participants, session?.user?.id]);
 
-    // Scroll handler
     const handleScroll = () => {
         if (!messagesContainerRef.current) return;
         const { scrollTop } = messagesContainerRef.current;
         if (scrollTop === 0) console.log("⬆️ Load older messages...");
     };
 
-    // ✅ 5️⃣ UI
     return (
         <div
             className="flex flex-col flex-1 h-full min-h-0 rounded-lg shadow-inner"
             style={{ backgroundColor: background }}
         >
-            {/* 🔹 Berichtenlijst */}
             <div
                 ref={messagesContainerRef}
                 onScroll={handleScroll}
                 className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4"
             >
                 {messages.map((m, i) => {
-                    // 🟡 Nieuw: systeemberichten apart tonen
                     if (m.type === "system") {
                         return (
                             <p
@@ -162,7 +151,6 @@ export default function ChatWindow({
                         );
                     }
 
-                    // 🔵 Normale berichten
                     const isMe = m.sender?.id === session?.user?.id;
 
                     return (
@@ -172,7 +160,6 @@ export default function ChatWindow({
                                 isMe ? "justify-end" : "justify-start"
                             }`}
                         >
-                            {/* Avatar */}
                             {!isMe &&
                                 (m.sender?.image ? (
                                     <Image
@@ -188,7 +175,6 @@ export default function ChatWindow({
                                     </div>
                                 ))}
 
-                            {/* Bubbels */}
                             <div
                                 className={`max-w-xs px-3 py-2 rounded-lg ${
                                     isMe
@@ -227,7 +213,6 @@ export default function ChatWindow({
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* 🔹 MessageForm vast onderaan */}
             <div className="shrink-0 bg-white border-t shadow-md">
                 <MessageForm
                     conversationId={conversationId}
@@ -237,7 +222,6 @@ export default function ChatWindow({
                         socket.emit("join_conversation", newId);
                         window.history.replaceState(null, "", `/chat/${newId}`);
 
-                        // ✅ doorgeven aan parent (indien meegegeven)
                         onNewConversation?.(newId);
                     }}
                     onSettingsChange={(background) => setBackground(background)}

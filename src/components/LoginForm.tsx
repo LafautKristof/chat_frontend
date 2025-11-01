@@ -12,7 +12,6 @@ export default function LoginPage() {
     async function handleLogin(e: React.FormEvent) {
         e.preventDefault();
 
-        // login via credentials
         await signIn("credentials", {
             email,
             password,
@@ -24,7 +23,6 @@ export default function LoginPage() {
         <div className="max-w-sm mx-auto p-6">
             <h1 className="text-2xl font-bold mb-6">Login</h1>
 
-            {/* Credentials login */}
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
                 <Input
                     value={email}
@@ -42,7 +40,7 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6">
-                <p className="text-center mb-2">Of login met</p>
+                <p className="text-center mb-2">Or login with</p>
                 <div className="flex flex-col gap-2">
                     <Button
                         onClick={() =>

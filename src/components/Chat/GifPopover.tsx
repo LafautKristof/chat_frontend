@@ -32,7 +32,7 @@ const GifPopover = ({ onSelect }: { onSelect: (url: string) => void }) => {
             }
         };
 
-        const delay = setTimeout(fetchGifs, 400); // ⏳ debounce zodat er geen spam ontstaat
+        const delay = setTimeout(fetchGifs, 400);
         return () => clearTimeout(delay);
     }, [query]);
     return (
@@ -61,7 +61,7 @@ const GifPopover = ({ onSelect }: { onSelect: (url: string) => void }) => {
                     />
                     <button
                         type="button"
-                        onClick={() => setQuery(query)} // handmatige refresh
+                        onClick={() => setQuery(query)}
                         className="p-1 bg-blue-500 text-white rounded"
                     >
                         <Search size={16} />

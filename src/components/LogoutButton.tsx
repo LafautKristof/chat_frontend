@@ -10,7 +10,7 @@ export default function LogoutButton() {
             variant="destructive"
             onClick={() =>
                 signOut({
-                    callbackUrl: "/", // waar user naartoe gaat na logout
+                    callbackUrl: "/",
                 })
             }
             className="flex items-center gap-2"
