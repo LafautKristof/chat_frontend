@@ -1,8 +1,9 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import SessionProvider from "@/app/providers/SessionProvider";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Chat App",
     description: "Realtime chat with NextAuth",
 };
